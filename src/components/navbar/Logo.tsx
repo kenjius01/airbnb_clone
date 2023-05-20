@@ -8,14 +8,8 @@ const Logo = () => {
   const router = useRouter();
   return (
     <div className='flex items-center'>
-      <LogoWithText
-        className='hidden cursor-pointer xl:block'
-        onClick={() => router.push('/')}
-      />
-      <LogoWithoutText
-        className='hidden cursor-pointer md:block xl:hidden'
-        onClick={() => router.push('/')}
-      />
+      <LogoWithText className='hidden cursor-pointer xl:block' onClick={() => router.push('/')} />
+      <LogoWithoutText className='hidden cursor-pointer md:block xl:hidden' onClick={() => router.push('/')} />
     </div>
   );
 };
