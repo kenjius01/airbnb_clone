@@ -70,13 +70,18 @@ const Modal = ({
         {/* CONTENT */}
         <div
           className={`translate duration-300 h-full ${
-            showModal ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+            showModal
+              ? 'translate-y-0 opacity-100'
+              : 'translate-y-full opacity-0'
           }`}
         >
           <div className='relative flex flex-col w-full h-full bg-white border-0 rounded-lg shadow-lg outline-none translate lg:h-auto md:h-auto focus:outline-none'>
             {/* HEADER */}
             <div className='relative flex items-center justify-center p-6 border-b rounded-t'>
-              <button onClick={handleClose} className='absolute p-1 transition border-0 hover:opacity-70 left-9'>
+              <button
+                onClick={handleClose}
+                className='absolute p-1 transition border-0 hover:opacity-70 left-9'
+              >
                 <IoMdClose size={18} />
               </button>
               <div className='text-lg font-semibold'>{title}</div>
@@ -88,7 +93,11 @@ const Modal = ({
               <div className='flex flex-col gap-2 p-6'>
                 <div className='flex flex-row items-center w-full gap-4'>
                   {secondaryAction && secondaryActionLabel && (
-                    <Button outline disabled={disabled} onClick={handleSecondaryAction}>
+                    <Button
+                      outline
+                      disabled={disabled}
+                      onClick={handleSecondaryAction}
+                    >
                       {secondaryActionLabel}
                     </Button>
                   )}
