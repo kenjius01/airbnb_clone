@@ -66,7 +66,7 @@ const Modal = ({
 
   return (
     <div className='fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none bg-neutral-800/70'>
-      <div className='relative w-full h-full mx-auto my-6 md:w-4/6 lg:w-1/2 xl:w-2/5 lg:h-auto md:h-auto'>
+      <div className='relative w-full h-full mx-auto my-6 md:w-4/6 lg:w-1/2 xl:max-w-3xl lg:h-auto md:h-auto'>
         {/* CONTENT */}
         <div
           className={`translate duration-300 h-full ${
@@ -89,24 +89,23 @@ const Modal = ({
             {/* BODY */}
             <div className='relative flex-auto p-6'>{body}</div>
             {/* FOOTER */}
-            {footer && (
-              <div className='flex flex-col gap-2 p-6'>
-                <div className='flex flex-row items-center w-full gap-4'>
-                  {secondaryAction && secondaryActionLabel && (
-                    <Button
-                      outline
-                      disabled={disabled}
-                      onClick={handleSecondaryAction}
-                    >
-                      {secondaryActionLabel}
-                    </Button>
-                  )}
-                  <Button disabled={disabled} onClick={handleSubmit}>
-                    {actionLabel}
+            <div className='flex flex-col gap-2 p-6'>
+              <div className='flex flex-row items-center w-full gap-4'>
+                {secondaryAction && secondaryActionLabel && (
+                  <Button
+                    outline
+                    disabled={disabled}
+                    onClick={handleSecondaryAction}
+                  >
+                    {secondaryActionLabel}
                   </Button>
-                </div>
+                )}
+                <Button disabled={disabled} onClick={handleSubmit}>
+                  {actionLabel}
+                </Button>
               </div>
-            )}
+              {footer}
+            </div>
           </div>
         </div>
       </div>
