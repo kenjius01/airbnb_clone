@@ -5,17 +5,26 @@ import Avatar from '../Avatar';
 import { useCallback, useState } from 'react';
 import MenuItem from './MenuItem';
 import useRegisterModal from '@/hooks/useRegisterModal';
+import useLoginModal from '@/hooks/useLoginModal';
+import { signOut } from 'next-auth/react';
+import { SafeUser } from '@/types';
 
-const UserMenu = () => {
+interface UserMenuProps {
+  currentUser?: SafeUser | null;
+}
+
+const UserMenu = ({ currentUser }: UserMenuProps) => {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const toggleOpen = useCallback(() => {
     setIsOpenMenu(value => !value);
   }, []);
+  console.log({ currentUser });
 
   //* Hanlde login
   const handleLogin = () => {
-    console.log('Login');
+    loginModal.onOpen();
   };
 
   //* Handle sign up
@@ -38,17 +47,54 @@ const UserMenu = () => {
         >
           <AiOutlineMenu />
           <div className='hidden md:block'>
-            <Avatar />
+            <Avatar src={currentUser?.image} />
           </div>
         </div>
       </div>
       {isOpenMenu && (
-        <div className='absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm'>
+        <div className='absolute rounded-xl border shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm'>
           <div className='flex flex-col cursor-pointer'>
-            <>
-              <MenuItem onClick={handleLogin} label='Login' />
-              <MenuItem onClick={handleSignup} label='Sign up' />
-            </>
+            {currentUser ? (
+              <>
+                <MenuItem
+                  onClick={() => {
+                    console.log('a');
+                  }}
+                  label='My trips'
+                />
+                <MenuItem
+                  onClick={() => {
+                    console.log('a');
+                  }}
+                  label='My favourites'
+                />
+                <MenuItem
+                  onClick={() => {
+                    console.log('a');
+                  }}
+                  label='My reservations'
+                />
+                <MenuItem
+                  onClick={() => {
+                    console.log('a');
+                  }}
+                  label='My properties'
+                />
+                <MenuItem
+                  onClick={() => {
+                    console.log('a');
+                  }}
+                  label='Airbnb my home'
+                />
+                <hr />
+                <MenuItem onClick={() => signOut()} label='Logout' />
+              </>
+            ) : (
+              <>
+                <MenuItem onClick={handleLogin} label='Login' />
+                <MenuItem onClick={handleSignup} label='Sign up' />
+              </>
+            )}
           </div>
         </div>
       )}
