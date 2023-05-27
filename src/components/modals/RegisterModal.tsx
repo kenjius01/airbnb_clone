@@ -1,20 +1,25 @@
 'use client';
 
-import axios, { AxiosError } from 'axios';
+import { useCallback, useState } from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import axios, { AxiosError } from 'axios';
+import { signIn } from 'next-auth/react';
+
+import useLoginModal from '@/hooks/useLoginModal';
 import useRegisterModal from '@/hooks/useRegisterModal';
-import { useState } from 'react';
-import Modal from './Modal';
+
+import Button from '../Button';
 import Heading from '../Heading';
 import Input from '../inputs/Input';
-import { toast } from 'react-hot-toast';
-import Button from '../Button';
-import { signIn } from 'next-auth/react';
+
+import Modal from './Modal';
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -28,6 +33,11 @@ const RegisterModal = () => {
       password: ''
     }
   });
+
+  const toggle = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [loginModal, registerModal]);
 
   const onSubmit: SubmitHandler<FieldValues> = data => {
     setIsLoading(true);
@@ -87,7 +97,7 @@ const RegisterModal = () => {
           <div>Already an account?</div>
           <span
             className='cursor-pointer text-neutral-800 hover:underline'
-            onClick={registerModal.onClose}
+            onClick={toggle}
           >
             Login
           </span>

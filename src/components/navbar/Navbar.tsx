@@ -1,10 +1,13 @@
 'use client';
 
+import { SafeUser } from '@/types';
+
 import Container from '../Container';
+
+import Category from './Category';
 import Logo from './Logo';
 import Search from './Search';
 import UserMenu from './UserMenu';
-import { SafeUser } from '@/types';
 
 interface NavbarProps {
   currentUser?: SafeUser | null;
@@ -22,6 +25,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
           </div>
         </Container>
       </div>
+      <Category />
     </div>
   );
 };

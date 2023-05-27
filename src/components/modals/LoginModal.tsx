@@ -1,21 +1,26 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
+import { useCallback, useState } from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { useState } from 'react';
-import Modal from './Modal';
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
+
+import useLoginModal from '@/hooks/useLoginModal';
+import useRegisterModal from '@/hooks/useRegisterModal';
+
+import Button from '../Button';
 import Heading from '../Heading';
 import Input from '../inputs/Input';
-import { toast } from 'react-hot-toast';
-import Button from '../Button';
-import useLoginModal from '@/hooks/useLoginModal';
-import { useRouter } from 'next/navigation';
+
+import Modal from './Modal';
 
 const LoginModal = () => {
   const router = useRouter();
   const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -28,6 +33,11 @@ const LoginModal = () => {
       password: ''
     }
   });
+
+  const toggle = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [loginModal, registerModal]);
 
   const onSubmit: SubmitHandler<FieldValues> = data => {
     setIsLoading(true);
@@ -84,12 +94,12 @@ const LoginModal = () => {
       </Button>
       <div className='mt-4 font-light text-center text-neutral-500'>
         <div className='flex flex-row justify-center gap-2'>
-          <div>Already an account?</div>
+          <div>First time using Airbnb?</div>
           <span
             className='cursor-pointer text-neutral-800 hover:underline'
-            onClick={loginModal.onClose}
+            onClick={toggle}
           >
-            Login
+            Create an account
           </span>
         </div>
       </div>

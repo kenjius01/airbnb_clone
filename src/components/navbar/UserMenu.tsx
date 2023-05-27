@@ -1,13 +1,16 @@
 'use client';
 
-import { AiOutlineMenu } from 'react-icons/ai';
-import Avatar from '../Avatar';
 import { useCallback, useState } from 'react';
-import MenuItem from './MenuItem';
-import useRegisterModal from '@/hooks/useRegisterModal';
-import useLoginModal from '@/hooks/useLoginModal';
+import { AiOutlineMenu } from 'react-icons/ai';
 import { signOut } from 'next-auth/react';
+
+import useLoginModal from '@/hooks/useLoginModal';
+import useRegisterModal from '@/hooks/useRegisterModal';
 import { SafeUser } from '@/types';
+
+import Avatar from '../Avatar';
+
+import MenuItem from './MenuItem';
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
@@ -20,16 +23,21 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
   const toggleOpen = useCallback(() => {
     setIsOpenMenu(value => !value);
   }, []);
-  console.log({ currentUser });
 
   //* Hanlde login
   const handleLogin = () => {
-    loginModal.onOpen();
+    return loginModal.onOpen();
   };
 
   //* Handle sign up
   const handleSignup = () => {
-    registerModal.onOpen();
+    return registerModal.onOpen();
+  };
+
+  const onRent = () => {
+    if (!currentUser) {
+      return loginModal.onOpen();
+    }
   };
 
   return (
@@ -37,7 +45,7 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
       <div className='flex flex-row items-center gap-3'>
         <div
           className='hidden px-4 py-3 text-sm font-semibold transition rounded-full cursor-pointer md:block hover:bg-neutral-100'
-          onClick={toggleOpen}
+          onClick={onRent}
         >
           Airbnb your home
         </div>
