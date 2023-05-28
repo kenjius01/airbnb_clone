@@ -6,6 +6,7 @@ import { signOut } from 'next-auth/react';
 
 import useLoginModal from '@/hooks/useLoginModal';
 import useRegisterModal from '@/hooks/useRegisterModal';
+import useRentModal from '@/hooks/useRentModal';
 import { SafeUser } from '@/types';
 
 import Avatar from '../Avatar';
@@ -19,7 +20,9 @@ interface UserMenuProps {
 const UserMenu = ({ currentUser }: UserMenuProps) => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const rentModal = useRentModal();
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+
   const toggleOpen = useCallback(() => {
     setIsOpenMenu(value => !value);
   }, []);
@@ -38,6 +41,7 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
     if (!currentUser) {
       return loginModal.onOpen();
     }
+    rentModal.onOpen();
   };
 
   return (
@@ -88,12 +92,7 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
                   }}
                   label='My properties'
                 />
-                <MenuItem
-                  onClick={() => {
-                    console.log('a');
-                  }}
-                  label='Airbnb my home'
-                />
+                <MenuItem onClick={rentModal.onOpen} label='Airbnb my home' />
                 <hr />
                 <MenuItem onClick={() => signOut()} label='Logout' />
               </>
