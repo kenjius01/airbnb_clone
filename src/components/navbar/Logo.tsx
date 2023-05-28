@@ -2,6 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 
+import ROUTES from '@/constants/routes';
+
 import LogoWithoutText from '../icons/LogoWithoutText';
 import LogoWithText from '../icons/LogoWithText';
 
@@ -11,11 +13,11 @@ const Logo = () => {
     <div className='flex items-center'>
       <LogoWithText
         className='hidden cursor-pointer xl:block'
-        onClick={() => router.push('/')}
+        onClick={() => router.push(ROUTES.HOME)}
       />
       <LogoWithoutText
         className='hidden cursor-pointer md:block xl:hidden'
-        onClick={() => router.push('/')}
+        onClick={() => router.push(ROUTES.HOME)}
       />
     </div>
   );

@@ -8,6 +8,7 @@ import { FcGoogle } from 'react-icons/fc';
 import axios, { AxiosError } from 'axios';
 import { signIn } from 'next-auth/react';
 
+import API from '@/constants/api';
 import useLoginModal from '@/hooks/useLoginModal';
 import useRegisterModal from '@/hooks/useRegisterModal';
 
@@ -42,7 +43,7 @@ const RegisterModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = data => {
     setIsLoading(true);
     axios
-      .post('/api/register', data)
+      .post(API.REGISTER, data)
       .then(() => {
         registerModal.onClose();
       })

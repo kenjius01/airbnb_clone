@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 
 import { categories } from '@/constants';
+import API from '@/constants/api';
 import useRentModal from '@/hooks/useRentModal';
 import { CountrySelectValue } from '@/types';
 
@@ -99,7 +100,7 @@ const RentModal = () => {
     }
     setIsloading(true);
     axios
-      .post('/api/listings', data)
+      .post(API.POST_ADD_LISTING, data)
       .then(() => {
         toast.success('Listing created!');
         router.refresh();
