@@ -1,4 +1,4 @@
-import { Inter } from 'next/font/google';
+import { Nunito } from 'next/font/google';
 
 import LoginModal from '@/components/modals/LoginModal';
 import RegisterModal from '@/components/modals/RegisterModal';
@@ -10,7 +10,9 @@ import getCurrentUser from './actions/getCurrentUser';
 
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const font = Nunito({
+  subsets: ['latin']
+});
 
 export const metadata = {
   title: 'AirBnB',
@@ -26,7 +28,7 @@ export default async function RootLayout({
 
   return (
     <html lang='en'>
-      <body className={inter.className}>
+      <body className={font.className}>
         <ToasterProvider />
         <RentModal />
         <LoginModal />

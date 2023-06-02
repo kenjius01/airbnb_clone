@@ -2,8 +2,10 @@
 
 import { useCallback, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
+import { useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 
+import ROUTES from '@/constants/routes';
 import useLoginModal from '@/hooks/useLoginModal';
 import useRegisterModal from '@/hooks/useRegisterModal';
 import useRentModal from '@/hooks/useRentModal';
@@ -18,6 +20,7 @@ interface UserMenuProps {
 }
 
 const UserMenu = ({ currentUser }: UserMenuProps) => {
+  const router = useRouter();
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const rentModal = useRentModal();
@@ -69,27 +72,21 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
             {currentUser ? (
               <>
                 <MenuItem
-                  onClick={() => {
-                    console.log('a');
-                  }}
+                  onClick={() => router.push(ROUTES.TRIPS)}
                   label='My trips'
                 />
                 <MenuItem
-                  onClick={() => {
-                    console.log('a');
-                  }}
+                  onClick={() => router.push(ROUTES.FAVORITES)}
                   label='My favourites'
                 />
                 <MenuItem
                   onClick={() => {
-                    console.log('a');
+                    router.push(ROUTES.RESERVATIONS);
                   }}
                   label='My reservations'
                 />
                 <MenuItem
-                  onClick={() => {
-                    console.log('a');
-                  }}
+                  onClick={() => router.push(ROUTES.PROPERTIES)}
                   label='My properties'
                 />
                 <MenuItem onClick={rentModal.onOpen} label='Airbnb my home' />

@@ -7,9 +7,11 @@ const API = {
 
   //LISTING
   POST_ADD_LISTING: '/api/listings',
+  DELETE_LISTINGS: 'api/listings',
 
   //Reservation
-  POST_ADD_RESERVATION: '/api/reservation'
+  POST_ADD_RESERVATION: '/api/reservation',
+  DELETE_RESERVATION: '/api/reservation'
 };
 
 export default API;

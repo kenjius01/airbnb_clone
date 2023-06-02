@@ -14,6 +14,7 @@ import ListingInfo from '@/components/listings/ListingInfo';
 import ListingReservation from '@/components/listings/ListingReservation';
 import { categories } from '@/constants';
 import API from '@/constants/api';
+import ROUTES from '@/constants/routes';
 import useLoginModal from '@/hooks/useLoginModal';
 import { SafeUser } from '@/types';
 
@@ -83,8 +84,7 @@ const ListingClient = ({
       .then(() => {
         toast.success('Listing reserved!');
         setDateRange(initialDateRange);
-        //TODO Redirect to /trips
-        router.refresh();
+        router.push(ROUTES.TRIPS);
       })
       .catch(() => {
         toast.error('Reserved failed!');

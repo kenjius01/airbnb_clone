@@ -1,6 +1,7 @@
-import { User } from '@prisma/client';
+import { Listing, Reservation, User } from '@prisma/client';
 
 export type SafeUser = Omit<User, 'hashedPassword'>;
+export type SafeReservation = Reservation & { listing: Listing };
 
 export type CountrySelectValue = {
   flag: string;
@@ -9,3 +10,7 @@ export type CountrySelectValue = {
   region: string;
   value: string;
 };
+
+export interface IListingParams {
+  userId?: string;
+}
