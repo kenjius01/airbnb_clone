@@ -1,6 +1,8 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import RegisterModal from './RegisterModal';
+import axios from 'axios';
+jest.mock('axios');
 
 describe('RegisterModal', () => {
   it('renders without crashing', () => {
@@ -20,7 +22,10 @@ describe('RegisterModal', () => {
     fireEvent.change(passwordInput, { target: { value: 'password' } });
     fireEvent.click(submitButton);
 
-    // Here, you would check if the expected callbacks are called with the correct arguments.
-    // This depends on your implementation and might require mocking functions or checking the state.
+    expect(axios.post).toHaveBeenCalledWith('/api/auth/register', {
+      email: 'test@example.com',
+      name: 'Test User',
+      password: 'password',
+    });
   });
 });
