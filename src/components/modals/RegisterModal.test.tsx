@@ -11,25 +11,29 @@ describe('RegisterModal', () => {
 
   test('allows the user to register successfully', async () => {
     render(<RegisterModal />);
-
+  
     userEvent.type(screen.getByLabelText(/email/i), 'test@example.com');
     userEvent.type(screen.getByLabelText(/name/i), 'Test User');
     userEvent.type(screen.getByLabelText(/password/i), 'password');
-
+  
     userEvent.click(screen.getByRole('button', { name: /continue/i }));
-
+  
     // Add assertion to check the expected outcome
+    expect(window.location.href).toBe('http://localhost/home');
   });
 
   test('shows validation error when input is invalid', async () => {
     render(<RegisterModal />);
-
+  
     userEvent.type(screen.getByLabelText(/email/i), 'invalid email');
     userEvent.type(screen.getByLabelText(/name/i), '');
     userEvent.type(screen.getByLabelText(/password/i), '');
-
+  
     userEvent.click(screen.getByRole('button', { name: /continue/i }));
-
+  
     // Add assertion to check if the appropriate error messages are displayed
+    expect(screen.getByText(/invalid email address/i)).toBeInTheDocument();
+    expect(screen.getByText(/name is required/i)).toBeInTheDocument();
+    expect(screen.getByText(/password is required/i)).toBeInTheDocument();
   });
 });
